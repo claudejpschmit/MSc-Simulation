@@ -1,7 +1,7 @@
 MSc-RW1
 ===========
 
-Random Walk Exercise @ Edinburgh University, 2014
+Simulation @ Edinburgh University, 2014
 
 ## Programming Style
 
