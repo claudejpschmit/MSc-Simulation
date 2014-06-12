@@ -1,0 +1,23 @@
+# Parameters for MC code for a random/self-avoiding walk with sticky sites
+# Vary parameters in this file, lines starting with '#' are ignored.
+#
+# nsteps = number of steps performed in the main loop
+10000000
+# max_index = how often the main loop is performed
+1
+# nPolimerase = how many sticky bits/polimerases/proteins there are
+8
+# ct = ct1 = steps performed before writing
+1000
+# random seed
+2736127
+# annealing, 1 = ON, 0 = OFF
+1
+# annealing multiplier
+0.999
+# tMax = starting temperature
+3.0
+# e0 = energy difference
+1.0
+# kb = polymer stiffness
+0.0
