@@ -4,6 +4,9 @@
 #include <sstream>
 #include "parser.hpp"
 
+#include <boost/random/mersenne_twister.hpp>
+#include <boost/random/uniform_real_distribution.hpp>
+
 using namespace std;
 
 int main(int argc, char *argv[]) {
@@ -30,6 +33,10 @@ int main(int argc, char *argv[]) {
     files.setParams(&nsteps, &max_index, &nPolymerase, &seed, &ct, 
             &loopSize, &tMax, &annealMult, &e0, &kb, &annealing, &walkSize);
 
+    //initialize RNG
+    boost::mt19937 rng;
+    rng.seed(seed);
+    boost::random::uniform_real_distribution<> uniDistr(0.0, 1.0);
     //define RW size; walkSize == L;
     // initialize RW
     vector<vector<double>> z(walkSize, vector<double>(3, 0));
@@ -81,7 +88,7 @@ int main(int argc, char *argv[]) {
 
             double ev = en;
             //TODO: use marsenne twister here, random between 0 and 1
-            double rand01 = 0;
+            double rand01 = uniDistr(rng);
             
             if (rand01 < 0.5) 
                 en += 1; //TODO: Delete this line

@@ -12,7 +12,7 @@
 # ct = ct1 = steps performed before writing
 1000
 # random seed
-2736127
+4773617
 # annealing, 1 = ON, 0 = OFF
 1
 # annealing multiplier
