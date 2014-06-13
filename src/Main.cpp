@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     }
 
     // initializing Programm parameters. 
-    int nsteps, walkSize, max_index, nPolymerase, seed, ct, ct1, loopSize;
+    int nsteps, walkSize, max_index, nPolymerase, seed, ct, loopSize;
     double tMax, annealMult, e0, kb;
     bool annealing;
     vector<vector<double>> interaction;
@@ -27,36 +27,8 @@ int main(int argc, char *argv[]) {
     parameterFile.close();
     interactionFile.close();
     files.setInteraction(&polymerase, &interaction);
-    files.setParams(&nsteps, &max_index, &nPolymerase, &seed, &ct, &ct1, 
+    files.setParams(&nsteps, &max_index, &nPolymerase, &seed, &ct, 
             &loopSize, &tMax, &annealMult, &e0, &kb, &annealing, &walkSize);
-
-
-    // Checks! 
-    // parameters initialize correctly
-    /*
-    cout << nsteps << endl;
-    cout << max_index << endl;
-    cout << nPolymerase << endl;
-    cout << seed << endl;
-    cout << ct << endl;
-    cout << ct1 << endl;
-    cout << loopSize << endl;
-    cout << tMax << endl;
-    cout << annealMult << endl;
-    cout << e0 << endl;
-    cout << kb << endl;
-    cout << annealing << endl;
-    */    
-
-    // interaction initializes correctly
-   /* 
-    for (int i = 0; i < nPolymerase; ++i) {
-        for (int j = 0; j < nPolymerase; ++j) {
-            cout << interaction[i][j] << "  ";
-        }
-        cout << endl;
-    }
-    */
 
     //define RW size; walkSize == L;
     // initialize RW
@@ -65,8 +37,16 @@ int main(int argc, char *argv[]) {
 
     
     //output interaction parameters. 
+    //check for interaction to be read correctly
     ofstream output_ip("interactionparameters.dat");
+    //output polymerase positions
+    //check if polymerase is correctly initialized
+    ofstream output_pp("polymerasepositions.dat");
+
     for (int i = 0; i < walkSize; ++i) {
+        if (polymerase[i] != 0) {
+            output_pp << i << endl;
+        }
         for (int j = 0; j < walkSize; ++j) {
             if (polymerase[i] + polymerase[j] == 2) {
                 output_ip << i << " " << j << " " << interaction[i][j] << endl;
@@ -74,7 +54,33 @@ int main(int argc, char *argv[]) {
         }
     }
     output_ip.close();
+    output_pp.close();
 
+    // defines energy output file
+    ofstream output_en("energy.dat");
+
+    // ------- Index Loop ------- //
+    for (int index = 0; index < max_index; ++index) {
+        double t = tMax;
+        for (int i = 0; i < walkSize; ++i) {
+            z[i][0] = 0.0;
+            z[i][1] = 0.0;
+            z[i][2] = i;
+        }
     
+        double en = 0;
+        //int nr = 0; was in the c code but doesn't do anything
+
+        // ----- Main Loop ----- //
+        for (int n = 0; n < nsteps; ++n) {
+            if (annealing)
+                if (n % ct == 0)
+                    t *= annealMult;
+
+
+        }
+    }
+    output_en.close();
+        
     return 0;
 }

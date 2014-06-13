@@ -24,7 +24,6 @@ Parser::Parser(ifstream &interactionFile, ifstream &parameterFile)
     nPolymerase = (int)parameters[2];
     loopSize = (int)parameters[3];
     ct = (int)parameters[4];
-    ct1 = (int)parameters[4];
     seed = (int)parameters[5];
     annealing = (int)parameters[6];
     annealMult = parameters[7];
@@ -53,7 +52,7 @@ Parser::Parser(ifstream &interactionFile, ifstream &parameterFile)
 } 
 
 void Parser::setParams(int* nsteps, int* max_index, int* nPolymerase,
-            int* seed, int* ct, int* ct1, int* loopSize, double* tMax, 
+            int* seed, int* ct, int* loopSize, double* tMax, 
             double* annealMult, double* e0, double* kb, bool* annealing, 
             int* walkSize)
 {
@@ -62,7 +61,6 @@ void Parser::setParams(int* nsteps, int* max_index, int* nPolymerase,
     *nPolymerase = this->nPolymerase;
     *seed = this->seed;
     *ct = this->ct;
-    *ct1 = this->ct1;
     *loopSize = this->loopSize;
     *tMax = this->tMax;
     *annealMult = this->annealMult;
