@@ -76,8 +76,26 @@ int main(int argc, char *argv[]) {
             if (annealing)
                 if (n % ct == 0)
                     t *= annealMult;
+        
+            double ti = 1.0 / t;
 
+            double ev = en;
+            //TODO: use marsenne twister here, random between 0 and 1
+            double rand01 = 0;
+            
+            if (rand01 < 0.5) 
+                en += 1; //TODO: Delete this line
+                //pivot(seed, z_new);
+            else
+                en -=1; //TODO: Delete this line
+                //krank(seed, z_new);
 
+            //metropolis(ti, seed, z_new);
+
+            if (n % ct == 0 || n == 0) {
+                //streamfile(n); // not sure what this does
+                output_en << t << " " << en << endl;
+            }
         }
     }
     output_en.close();
