@@ -7,6 +7,8 @@
 1
 # nPolimerase = how many sticky bits/polimerases/proteins there are
 8
+# loopsize = how many steps between each polymerase
+10
 # ct = ct1 = steps performed before writing
 1000
 # random seed
