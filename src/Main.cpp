@@ -2,10 +2,13 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+
+#include "helper.hpp"
+#include "move.hpp"
 #include "parser.hpp"
 
 #include <boost/random/mersenne_twister.hpp>
-#include <boost/random/uniform_real_distribution.hpp>
+#include <boost/random/uniform_01.hpp>
 
 using namespace std;
 
@@ -36,7 +39,7 @@ int main(int argc, char *argv[]) {
     //initialize RNG
     boost::mt19937 rng;
     rng.seed(seed);
-    boost::random::uniform_real_distribution<> uniDistr(0.0, 1.0);
+    boost::random::uniform_01<> rand01;
     //define RW size; walkSize == L;
     // initialize RW
     vector<vector<double>> z(walkSize, vector<double>(3, 0));
@@ -88,9 +91,8 @@ int main(int argc, char *argv[]) {
 
             double ev = en;
             //TODO: use marsenne twister here, random between 0 and 1
-            double rand01 = uniDistr(rng);
             
-            if (rand01 < 0.5) 
+            if (rand01(rng) < 0.5) 
                 en += 1; //TODO: Delete this line
                 //pivot(seed, z_new);
             else

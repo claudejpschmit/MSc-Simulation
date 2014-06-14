@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 project(Simulation)
 message(status "${CMAKE_CURRENT_SOURCE_DIR}")
 include_directories(src include)
-set(HEADER_FILES include/parser.hpp)
+set(HEADER_FILES include/parser.hpp include/helper.hpp include/move.hpp)
 find_package(Boost 1.53)
 ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK) 
 message(status "** Boost Include: ${Boost_INCLUDE_DIR}")
@@ -33,7 +33,8 @@ LINK_DIRECTORIES(${ARMADILLO_LIBRARIES})
 #INCLUDE_DIRECTORIES(${ROOT_INCLUDE_DIR})
 #LINK_DIRECTORIES(${ROOT_LIBRARY_DIR})
 
-add_executable(Simulation src/Main.cpp src/parser.cpp ${HEADER_FILES})
+add_executable(Simulation src/Main.cpp src/parser.cpp src/helper.cpp
+    src/move.cpp ${HEADER_FILES})
 target_link_libraries(Simulation -lm ${Boost_LIBRARIES})
 target_link_libraries(Simulation -lm ${ARMADILLO_LIBRARIES})
 #target_link_libraries(Simulation -lm ${ROOT_LIBRARIES})
@@ -52,7 +53,8 @@ if (CMAKE_COMPILER_IS_GNUCXX)
     message(status "Setting GCC flags")
 
     # Remove the -g flag when not debugging
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O2 -Wall -Wextra -W -pedantic -std=c++0x -O3 -larmadillo -llapack -lblas")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O2 -Wall -Wextra -W
+    -pedantic -std=c++0x -O3 -larmadillo -llapack -lblas")
 else()
     message(status "Setting MSVC flags")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHc-")
