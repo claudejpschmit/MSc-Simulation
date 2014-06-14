@@ -12,8 +12,8 @@ class Move {
 
 public: 
     Move(int seed, int walkSize);
-    void pivot(vector<vector<double>> zn, vector<vector<double>> z);
-    void krank(vector<vector<double>> zn, vector<vector<double>> z);
+    void pivot(vector<vector<double>>* zn, vector<vector<double>> z);
+    void krank(vector<vector<double>>* zn, vector<vector<double>> z);
 
 private:
     boost::mt19937 rng;

@@ -11,8 +11,9 @@ Move::Move(int seed, int walkSize)
     rng.seed(seed);    
 }
 
-void Move::pivot(vector<vector<double>> zn, vector<vector<double>> z) 
+void Move::pivot(vector<vector<double>>* zn, vector<vector<double>> z) 
 {
+    vector<vector<double>> buff = *zn;
     double ver = 1;
     if (rand01(rng) < 0.5) ver = -1;
     double beta = rand01(rng) * PI * ver;   //max angle pi
@@ -60,18 +61,21 @@ void Move::pivot(vector<vector<double>> zn, vector<vector<double>> z)
 
     for (int i = 0; i < maxI; ++i)
         for (int j = 0; j < 3; ++j)
-            zn[nm + i][j] = pos[i][j] + z[nm][j];
+            buff[nm + i][j] = pos[i][j] + z[nm][j];
 
     if (nm != 0)
         for (int i = 0; i < nm; ++i)
             for (int j = 0; j < 3; ++j)
-                zn[i][j] = z[i][j];
+                buff[i][j] = z[i][j];
+    
+    *zn = buff;
 }
 
-void Move::krank (vector<vector<double>> zn, vector<vector<double>> z) 
+void Move::krank (vector<vector<double>>* zn, vector<vector<double>> z) 
 {
     vector<vector<double>> pos(walkSize, vector<double>(3, 0));
     vector<vector<double>> pos1(walkSize, vector<double>(3, 0));
+    vector<vector<double>> buff = *zn;
 
 Choose: int nm = floor(rand01(rng) * walkSize);
     if (nm >= walkSize - 2 || nm == 0) goto Choose;
@@ -136,28 +140,30 @@ Choose: int nm = floor(rand01(rng) * walkSize);
 
 ReAssembleChain: for(int i = 0; i < nm1 + 1; ++i){
                         for(int j = 0; j < 3; ++j){
-                            zn[nm + i][j] = pos[i][j] + c[j];
+                            buff[nm + i][j] = pos[i][j] + c[j];
                         }  
                     }
 
     if (nm != 0) 
         for (int i = 0; i < nm; ++i)
             for (int j = 0; j < 3; ++j)
-                zn[i][j] = z[i][j];
+                buff[i][j] = z[i][j];
 
     if (nf != walkSize - 1)
         for(int i = nf + 1; i <= walkSize - 1; ++i)
             for(int j = 0; j < 3; ++j)
-                zn[i][j] = z[i][j];
+                buff[i][j] = z[i][j];
 
     /*
     for (int i = 0; i < 3; ++i){
-        if (abs(base[i] - zn[nf][i]) > 0.01){
+        if (abs(base[i] - buff[nf][i]) > 0.01){
             fprintf(stderr, "aarrghhh!!!!\n");
-            fprintf(stderr, "%d %lf\n", i, base[i] - zn[nf][i]);
+            fprintf(stderr, "%d %lf\n", i, base[i] - buff[nf][i]);
         }
     }
     */
+
+    *zn = buff;
 }  
 
 void Move::dir(double costh, double sinth, double cospsi, double sinpsi, 

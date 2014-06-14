@@ -98,9 +98,9 @@ int main(int argc, char *argv[]) {
             double ev = en;
             
             if (rand01(rng) < 0.5) 
-                move.pivot(z_new, z);
+                move.pivot(&z_new, z);
             else
-                move.krank(z_new, z);
+                move.krank(&z_new, z);
     
             metro.step(&en, ev, ti, &z, z_new, rand01(rng));
 
