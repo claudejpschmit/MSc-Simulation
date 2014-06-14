@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 2.8)
 project(Simulation)
 message(status "${CMAKE_CURRENT_SOURCE_DIR}")
 include_directories(src include)
-set(HEADER_FILES include/parser.hpp include/helper.hpp include/move.hpp)
+set(HEADER_FILES include/parser.hpp include/helper.hpp include/move.hpp
+    include/metropolis.hpp)
 find_package(Boost 1.53)
 ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK) 
 message(status "** Boost Include: ${Boost_INCLUDE_DIR}")
@@ -34,7 +35,7 @@ LINK_DIRECTORIES(${ARMADILLO_LIBRARIES})
 #LINK_DIRECTORIES(${ROOT_LIBRARY_DIR})
 
 add_executable(Simulation src/Main.cpp src/parser.cpp src/helper.cpp
-    src/move.cpp ${HEADER_FILES})
+    src/move.cpp src/metropolis.cpp ${HEADER_FILES})
 target_link_libraries(Simulation -lm ${Boost_LIBRARIES})
 target_link_libraries(Simulation -lm ${ARMADILLO_LIBRARIES})
 #target_link_libraries(Simulation -lm ${ROOT_LIBRARIES})

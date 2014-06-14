@@ -6,6 +6,7 @@
 #include "helper.hpp"
 #include "move.hpp"
 #include "parser.hpp"
+#include "metropolis.hpp"
 
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_01.hpp>
@@ -47,6 +48,9 @@ int main(int argc, char *argv[]) {
 
     //Initializing Move object
     Move move(seed + 5, walkSize);
+
+    //Initializing Metropolis Object
+    Metropolis metro(walkSize, e0, kb, interaction, polymerase);
     
     //output interaction parameters. 
     //check for interaction to be read correctly
@@ -97,8 +101,8 @@ int main(int argc, char *argv[]) {
                 move.pivot(z_new, z);
             else
                 move.krank(z_new, z);
-
-            //metropolis(ti, seed, z_new);
+    
+            metro.step(&en, ev, ti, &z, z_new, rand01(rng));
 
             if (n % ct == 0 || n == 0) {
 
