@@ -53,8 +53,7 @@ if (CMAKE_COMPILER_IS_GNUCXX)
     message(status "Setting GCC flags")
 
     # Remove the -g flag when not debugging
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O2 -Wall -Wextra -W
-    -pedantic -std=c++0x -O3 -larmadillo -llapack -lblas")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O2 -Wall -Wextra -W -pedantic -std=c++0x -O3 -LNO -larmadillo -llapack -lblas")
 else()
     message(status "Setting MSVC flags")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHc-")
