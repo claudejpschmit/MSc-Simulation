@@ -83,10 +83,11 @@ Choose: int nm = floor(rand01(rng) * walkSize);
     int ver = 1;
     if (rand01(rng) < 0.5) ver = - 1;
     double beta = rand01(rng) * PI * ver;           // max angle pi
+    /*
     double base[3];
     for (int i = 0; i < 3; ++i)
         base[i] = z[nf][i];
-
+*/
 
     double c[3];
     for (int i = 0;i < 3; ++i)
@@ -101,11 +102,13 @@ Choose: int nm = floor(rand01(rng) * walkSize);
     rag = sqrt(rag);
     double costh = pos[nm1][2] / rag;
     double sinth = sqrt(1.0 - costh * costh);
+    double cospsi, sinpsi, cosom, sinom;
+
     if (sinth < 0.0001) goto ReAssembleChain;
-    double cospsi = pos[nm1][0] / (rag * sinth);
-    double sinpsi = pos[nm1][1] / (rag * sinth);
-    double cosom = cos(beta);
-    double sinom = sin(beta);
+    cospsi = pos[nm1][0] / (rag * sinth);
+    sinpsi = pos[nm1][1] / (rag * sinth);
+    cosom = cos(beta);
+    sinom = sin(beta);
     double rot[3][3];
     dir(costh, sinth, cospsi, sinpsi, cosom, sinom, rot);  
 
@@ -131,7 +134,7 @@ Choose: int nm = floor(rand01(rng) * walkSize);
         }
     }
 
-ReAssembleChain:    for(int i = 0; i < nm1 + 1; ++i){
+ReAssembleChain: for(int i = 0; i < nm1 + 1; ++i){
                         for(int j = 0; j < 3; ++j){
                             zn[nm + i][j] = pos[i][j] + c[j];
                         }  
